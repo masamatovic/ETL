@@ -28,11 +28,19 @@ public class AwardInterpretation {
     @ManyToOne(cascade = CascadeType.DETACH, fetch = FetchType.LAZY)
     private Shift shift;
 
-
     public AwardInterpretation() {
     }
 
-
+    public AwardInterpretation(Float units, String date, String exportName, String secondaryExportName, Boolean ordinary_hours, Float cost, String from, String to) {
+        this.units = units;
+        this.date = date;
+        this.exportName = exportName;
+        this.secondaryExportName = secondaryExportName;
+        this.ordinary_hours = ordinary_hours;
+        this.cost = cost;
+        this.date_from = from;
+        this.date_to = to;
+    }
 
     public Float getUnits() {
         return units;

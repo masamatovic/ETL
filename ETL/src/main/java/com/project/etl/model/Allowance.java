@@ -16,14 +16,15 @@ public class Allowance {
     @ManyToOne(cascade = CascadeType.DETACH, fetch = FetchType.LAZY)
     private Shift shift;
 
-    public Allowance(Long id, String name, Float value, Float cost) {
+    public Allowance() {
+    }
+
+    public Allowance(Long id, String name, Float value, Float cost, Shift shift) {
         this.id = id;
         this.name = name;
         this.value = value;
         this.cost = cost;
-    }
-
-    public Allowance() {
+        this.shift = shift;
     }
 
     public Long getId() {

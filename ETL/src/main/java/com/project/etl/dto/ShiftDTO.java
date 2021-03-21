@@ -30,8 +30,6 @@ public class ShiftDTO {
     ArrayList<AllowanceDTO> allowances = new ArrayList<>();
     ArrayList<AwardInterpretationDTO> awardInterpretations = new ArrayList<>();
 
-
-
     public ShiftDTO() {
     }
 
@@ -59,6 +57,29 @@ public class ShiftDTO {
         this.breaks = breaks;
         this.allowances = allowances;
         this.awardInterpretations = awardInterpretations;
+    }
+
+    public ShiftDTO(Long id, Long timeSheetId, Long userId, String date, Long start, Long finish, Long departmentId, String subCostCentre, String tag, Long tagId, Status status, String metadata, Long leaveRequestId, Long shiftFeedBackId, Long approvedBy, Long approvedAt, Float cost, Long updatedAt, Long recordId, Long lastCostedAt) {
+        this.id = id;
+        this.timeSheetId = timeSheetId;
+        this.userId = userId;
+        this.date = date;
+        this.start = start;
+        this.finish = finish;
+        this.departmentId = departmentId;
+        this.subCostCentre = subCostCentre;
+        this.tag = tag;
+        this.tagId = tagId;
+        this.status = status;
+        this.metadata = metadata;
+        this.leaveRequestId = leaveRequestId;
+        this.shiftFeedBackId = shiftFeedBackId;
+        this.approvedBy = approvedBy;
+        this.approvedAt = approvedAt;
+        this.cost = cost;
+        this.updatedAt = updatedAt;
+        this.recordId = recordId;
+        this.lastCostedAt = lastCostedAt;
     }
 
     public Long getId() {
@@ -244,5 +265,6 @@ public class ShiftDTO {
     public void setAwardInterpretations(ArrayList<AwardInterpretationDTO> awardInterpretations) {
         this.awardInterpretations = awardInterpretations;
     }
+
 
 }

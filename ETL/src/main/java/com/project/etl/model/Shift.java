@@ -58,10 +58,31 @@ public class Shift {
     @OneToMany(mappedBy="shift")
     List<AwardInterpretation> awardInterpretations = new ArrayList<>();
 
-
     public Shift() {
     }
 
+    public Shift(Long id, Long timeSheetId, Long userId, String date, String start, String finish, Long departmentId, String subCostCentre, String tag, Long tagId, Status status, String metadata, Long leaveRequestId, Long shiftFeedBackId, Long approvedBy, String approvedAt, Float cost, String updatedAt, Long recordId, String lastCostedAt) {
+        this.id = id;
+        this.timeSheetId = timeSheetId;
+        this.userId = userId;
+        this.date = date;
+        this.start = start;
+        this.finish = finish;
+        this.departmentId = departmentId;
+        this.subCostCentre = subCostCentre;
+        this.tag = tag;
+        this.tagId = tagId;
+        this.status = status;
+        this.metadata = metadata;
+        this.leaveRequestId = leaveRequestId;
+        this.shiftFeedBackId = shiftFeedBackId;
+        this.approvedBy = approvedBy;
+        this.approvedAt = approvedAt;
+        this.cost = cost;
+        this.updatedAt = updatedAt;
+        this.recordId = recordId;
+        this.lastCostedAt = lastCostedAt;
+    }
 
     public Long getId() {
         return id;

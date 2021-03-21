@@ -8,33 +8,15 @@ import com.project.etl.model.Allowance;
 import com.project.etl.model.AwardInterpretation;
 import com.project.etl.model.Break;
 import com.project.etl.model.Shift;
-import com.project.etl.repository.AllowanceRepository;
-import com.project.etl.repository.AwardInterpretationRepository;
-import com.project.etl.repository.BreakRepository;
-import com.project.etl.repository.ShiftRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.TimeZone;
 
 @Service
 public class TransformService {
-
-    @Autowired
-    ShiftRepository shiftRepository;
-
-    @Autowired
-    BreakRepository breakRepository;
-
-    @Autowired
-    AllowanceRepository allowanceRepository;
-
-    @Autowired
-    AwardInterpretationRepository awardInterpretationRepository;
-
 
     public Shift transformShift(ShiftDTO shiftDTO){
         Shift shift = new Shift();
@@ -59,38 +41,41 @@ public class TransformService {
         shift.setRecordId(shiftDTO.getRecordId());
         shift.setLastCostedAt(setDate(shiftDTO.getLastCostedAt()));
 
-        Shift newShift = shiftRepository.save(shift);
-
-        return newShift;
-
+        return shift;
     }
-    public void transformBreak (ShiftDTO shiftDTO, Shift shift){
-        for (BreakDTO breakDTO : shiftDTO.getBreaks()){
+
+    public ArrayList<Break> transformBreak (ArrayList<BreakDTO> breakDTOS, Shift shift){
+        ArrayList<Break> breaks = new ArrayList<>();
+        for (BreakDTO breakDTO : breakDTOS){
             Break aBreak = new Break();
             aBreak.setId(breakDTO.getId());
             aBreak.setStart(setDate(breakDTO.getStart()));
             aBreak.setFinish(setDate(breakDTO.getFinish()));
             aBreak.setLength(breakDTO.getLength());
             aBreak.setPaid(breakDTO.getPaid());
-
             aBreak.setShift(shift);
-            breakRepository.save(aBreak);
+            breaks.add(aBreak);
         }
+        return breaks;
     }
-    public void transformAllowance (ShiftDTO shiftDTO, Shift shift){
-        for (AllowanceDTO allowanceDTO : shiftDTO.getAllowances()){
+
+    public ArrayList<Allowance> transformAllowance ( ArrayList<AllowanceDTO> allowanceDTOS, Shift shift){
+        ArrayList<Allowance> allowances = new ArrayList<>();
+        for (AllowanceDTO allowanceDTO : allowanceDTOS){
             Allowance allowance = new Allowance();
             allowance.setId(allowanceDTO.getId());
             allowance.setName(allowanceDTO.getName());
             allowance.setValue(allowanceDTO.getValue());
             allowance.setCost(allowanceDTO.getCost());
             allowance.setShift(shift);
-            allowanceRepository.save(allowance);
+            allowances.add(allowance);
         }
+        return allowances;
     }
 
-    public void transformAwardInterpretation (ShiftDTO shiftDTO, Shift shift){
-        for (AwardInterpretationDTO awardInterpretationDTO : shiftDTO.getAwardInterpretations()){
+    public ArrayList<AwardInterpretation> transformAwardInterpretation ( ArrayList<AwardInterpretationDTO> awardInterpretationDTOS, Shift shift){
+        ArrayList<AwardInterpretation> awardInterpretations = new ArrayList<>();
+        for (AwardInterpretationDTO awardInterpretationDTO : awardInterpretationDTOS){
             AwardInterpretation awardInterpretation = new AwardInterpretation();
             awardInterpretation.setUnits(awardInterpretationDTO.getUnits());
             awardInterpretation.setDate(awardInterpretationDTO.getDate());
@@ -101,8 +86,9 @@ public class TransformService {
             awardInterpretation.setDate_from(setDate(awardInterpretationDTO.getFrom()));
             awardInterpretation.setDate_to(setDate(awardInterpretationDTO.getTo()));
             awardInterpretation.setShift(shift);
-            awardInterpretationRepository.save(awardInterpretation);
+            awardInterpretations.add(awardInterpretation);
         }
+        return awardInterpretations;
     }
 
     public String setDate(Long milliseconds){
