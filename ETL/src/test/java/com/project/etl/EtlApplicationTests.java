@@ -1,10 +1,12 @@
 package com.project.etl;
 
 import com.project.etl.dto.AllowanceDTO;
+import com.project.etl.dto.AwardInterpretationDTO;
 import com.project.etl.dto.BreakDTO;
 import com.project.etl.dto.ShiftDTO;
 import com.project.etl.enums.Status;
 import com.project.etl.model.Allowance;
+import com.project.etl.model.AwardInterpretation;
 import com.project.etl.model.Break;
 import com.project.etl.model.Shift;
 import com.project.etl.service.TransformService;
@@ -100,6 +102,7 @@ class EtlApplicationTests {
         assertThat(allowance1).isEqualToComparingFieldByField(allowances.get(0));
         assertThat(allowance2).isEqualToComparingFieldByField(allowances.get(1));
     }
+
     @Test
     void transformAllowance_AllowanceDTOSNull_ThrowsException() {
         TransformService transformService = new TransformService();
@@ -109,6 +112,40 @@ class EtlApplicationTests {
                 null, null, 1.2F, "2021-03-17 16:31:53", 123L, "2021-03-17 16:31:53");
         try {
             ArrayList<Allowance> newBreaks = transformService.transformAllowance(allowanceDTOS, shift);
+        } catch (NullPointerException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    @Test
+    void transformAwardInterpretation_CorrectAwardInterpretationDTOS_ExpectedBehavior() {
+        TransformService transformService = new TransformService();
+        Shift shift = new Shift(1234L, 1234L, 1234L, "2020-07-23", "2021-03-17 16:31:53", "2021-03-17 16:31:53",
+                1234L, null, null, 1234L, Status.PENDING, null, 1234L, 123L,
+                null, null, 1.2F, "2021-03-17 16:31:53", 123L, "2021-03-17 16:31:53");
+        AwardInterpretationDTO awardInterpretationDTO = new AwardInterpretationDTO(10.4f, "2020-07-23", "name name", null, false, 11.4f, 1615924975013l, 1615925755013l);
+        AwardInterpretationDTO awardInterpretationDTO1 = new AwardInterpretationDTO(15.4f, "2020-07-23", "name masa", null, true, 65.4f, 1615924975013l, 1615925755013l);
+        ArrayList<AwardInterpretationDTO> awardInterpretationDTOS = new ArrayList<>();
+        awardInterpretationDTOS.add(awardInterpretationDTO);
+        awardInterpretationDTOS.add(awardInterpretationDTO1);
+        AwardInterpretation awardInterpretation1 = new AwardInterpretation(10.4f, "2020-07-23", "name name", null, false, 11.4f, "2021-03-16 15:02:55", "2021-03-16 15:15:55", shift);
+        AwardInterpretation awardInterpretation2 = new AwardInterpretation(15.4f, "2020-07-23", "name masa", null, true, 65.4f, "2021-03-16 15:02:55", "2021-03-16 15:15:55", shift);
+
+        ArrayList<AwardInterpretation> awardInterpretations = transformService.transformAwardInterpretation(awardInterpretationDTOS, shift);
+
+        assertThat(awardInterpretation1).isEqualToComparingFieldByField(awardInterpretations.get(0));
+        assertThat(awardInterpretation2).isEqualToComparingFieldByField(awardInterpretations.get(1));
+    }
+
+    @Test
+    void transformAwardInterpretation_AwardInterpretationDTOSNull_ThrowsException() {
+        TransformService transformService = new TransformService();
+        ArrayList<AwardInterpretationDTO> awardInterpretationDTOS = null;
+        Shift shift = new Shift(1234L, 1234L, 1234L, "2020-07-23", "2021-03-17 16:31:53", "2021-03-17 16:31:53",
+                1234L, null, null, 1234L, Status.PENDING, null, 1234L, 123L,
+                null, null, 1.2F, "2021-03-17 16:31:53", 123L, "2021-03-17 16:31:53");
+        try {
+            ArrayList<AwardInterpretation> newBreaks = transformService.transformAwardInterpretation(awardInterpretationDTOS, shift);
         } catch (NullPointerException e) {
             System.out.println(e.getMessage());
         }

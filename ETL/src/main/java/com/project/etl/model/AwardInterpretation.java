@@ -31,7 +31,7 @@ public class AwardInterpretation {
     public AwardInterpretation() {
     }
 
-    public AwardInterpretation(Float units, String date, String exportName, String secondaryExportName, Boolean ordinary_hours, Float cost, String from, String to) {
+    public AwardInterpretation(Float units, String date, String exportName, String secondaryExportName, Boolean ordinary_hours, Float cost, String from, String to, Shift shift) {
         this.units = units;
         this.date = date;
         this.exportName = exportName;
@@ -40,6 +40,7 @@ public class AwardInterpretation {
         this.cost = cost;
         this.date_from = from;
         this.date_to = to;
+        this.shift = shift;
     }
 
     public Float getUnits() {
