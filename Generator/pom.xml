@@ -9,9 +9,9 @@
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>com.example</groupId>
-    <artifactId>smartcat</artifactId>
+    <artifactId>generator</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>SmartCart</name>
+    <name>Generator</name>
     <description>Interview Technical Task</description>
     <properties>
         <java.version>1.8</java.version>

@@ -18,9 +18,16 @@ public class Break {
     @ManyToOne(cascade = CascadeType.DETACH, fetch = FetchType.LAZY)
     private Shift shift;
 
-
     public Break() {
+    }
 
+    public Break(Long id, String start, String finish, int length, Boolean paid, Shift shift) {
+        this.id = id;
+        this.start = start;
+        this.finish = finish;
+        this.length = length;
+        this.paid = paid;
+        this.shift = shift;
     }
 
     public Long getId() {
