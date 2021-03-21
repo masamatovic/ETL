@@ -17,3 +17,4 @@ start etl process
 ```
 $ ./start.sh
 ```
+path to tests: ETL/src/test/java/com/project/etl/
