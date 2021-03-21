@@ -1,6 +1,5 @@
 package com.example.smartcat.model;
 
-
 public class AwardInterpretation {
     private Float units;
     private String date;

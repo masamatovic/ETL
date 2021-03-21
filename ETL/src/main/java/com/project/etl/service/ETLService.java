@@ -18,7 +18,7 @@ public class ETLService {
 
     public ShiftDTO[] extract(){
         ResponseEntity<ShiftDTO[]> response = restTemplate.getForEntity(System.getenv("API"), ShiftDTO[].class );
-        System.out.println("ovde cu da ispisem size: " + response.getBody());
+
         for (ShiftDTO shiftDTO : response.getBody()){
             Shift shift = transformService.transformShift(shiftDTO);
             transformService.transformBreak(shiftDTO, shift);

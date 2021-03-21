@@ -5,6 +5,7 @@ public class Allowance {
     private String name;
     private Float value;
     private Float cost;
+
     public Allowance() {
     }
 

@@ -18,19 +18,17 @@ public class Shift {
     Status status;
     String metadata;
     Long leaveRequestId;
-    String shiftFeedBackId;
+    Long shiftFeedBackId;
     Long approvedBy;
     Long approvedAt;
     Float cost;
     Long updatedAt;
     Long recordId;
     Long lastCostedAt;
-    // DODAJ SVE LISTE
+
     ArrayList<Break> breaks = new ArrayList<>();
     ArrayList<Allowance> allowances = new ArrayList<>();
     ArrayList<AwardInterpretation> awardInterpretations = new ArrayList<>();
-
-
 
     public Shift() {
     }
@@ -185,5 +183,37 @@ public class Shift {
 
     public void setAwardInterpretations(ArrayList<AwardInterpretation> awardInterpretations) {
         this.awardInterpretations = awardInterpretations;
+    }
+
+    public Long getApprovedBy() {
+        return approvedBy;
+    }
+
+    public void setApprovedBy(Long approvedBy) {
+        this.approvedBy = approvedBy;
+    }
+
+    public Long getUpdatedAt() {
+        return updatedAt;
+    }
+
+    public void setUpdatedAt(Long updatedAt) {
+        this.updatedAt = updatedAt;
+    }
+
+    public Long getLastCostedAt() {
+        return lastCostedAt;
+    }
+
+    public void setLastCostedAt(Long lastCostedAt) {
+        this.lastCostedAt = lastCostedAt;
+    }
+
+    public Long getShiftFeedBackId() {
+        return shiftFeedBackId;
+    }
+
+    public void setShiftFeedBackId(Long shiftFeedBackId) {
+        this.shiftFeedBackId = shiftFeedBackId;
     }
 }

@@ -13,11 +13,10 @@ public class ETLController {
     @Autowired
     ETLService etlService;
 
-
     @GetMapping()
-    public ResponseEntity<ShiftDTO[]> hi(){
+    public ResponseEntity<String>  fetchesTheData(){
         ShiftDTO[] shifts = etlService.extract();
-        return new ResponseEntity<ShiftDTO[]>(shifts, HttpStatus.OK);
+        return new ResponseEntity<>("The data was successfully supplied", HttpStatus.OK);
     }
 
 }

@@ -3,12 +3,16 @@ package com.example.smartcat.service;
 import com.example.smartcat.model.AwardInterpretation;
 import com.thedeanda.lorem.Lorem;
 import com.thedeanda.lorem.LoremIpsum;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 
 @Service
 public class AwardInterpretationGenerator {
+
+    @Autowired
+    RandomGenerator randomGenerator;
 
     static final long ONE_MINUTE_IN_MILLIS=60000;
 
@@ -24,25 +28,20 @@ public class AwardInterpretationGenerator {
 
     public AwardInterpretation generateAwardInterpretation(String date, Long start, Long end){
         AwardInterpretation awardInterpretation = new AwardInterpretation();
-        awardInterpretation.setCost(randomFloat(1f, 100f));
-        awardInterpretation.setUnits(randomFloat(0f, 10f));
+        awardInterpretation.setCost(randomGenerator.randomFloat(1f, 100f));
+        awardInterpretation.setUnits(randomGenerator.randomFloat(0f, 10f));
         Lorem lorem = LoremIpsum.getInstance();
         awardInterpretation.setExportName(lorem.getWords(1, 5));
-        awardInterpretation.setOrdinary_hours(true);
+        if ((float)Math.random() > .5){
+            awardInterpretation.setOrdinary_hours(true);
+        } else {
+            awardInterpretation.setOrdinary_hours(false);
+        }
         awardInterpretation.setDate(date);
         long randMilliseconds = start + (long) (Math.random() * (end - start));
         awardInterpretation.setFrom(randMilliseconds);
-        awardInterpretation.setTo(randMilliseconds + generateLength() * ONE_MINUTE_IN_MILLIS);
+        awardInterpretation.setTo(randMilliseconds + randomGenerator.generateLength(1, 10) * ONE_MINUTE_IN_MILLIS);
         return awardInterpretation;
-    }
-    public int generateLength(){
-        int leftLimit = 1;
-        int rightLimit = 10;
-        return leftLimit + (int) (Math.random() * (rightLimit - leftLimit));
-    }
-    public Float randomFloat (Float min, Float max)
-    {
-        return min + (float) (Math.random() * (max - min));
     }
 
 }

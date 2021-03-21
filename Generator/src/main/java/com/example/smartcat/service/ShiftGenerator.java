@@ -14,8 +14,12 @@ import java.util.Date;
 @Service
 public class ShiftGenerator {
 
+    private static final long MILLIS_IN_A_DAY = 1000 * 60 * 60 * 24;
+
     @Autowired
-    BreakeGenerator breakeGenerator;
+    RandomGenerator randomGenerator;
+    @Autowired
+    BreakGenerator breakGenerator;
     @Autowired
     AllowanceGenerator allowanceGenerator;
     @Autowired
@@ -23,7 +27,7 @@ public class ShiftGenerator {
 
     public ArrayList<Shift> generateListOfShift(){
         ArrayList<Shift> shifts = new ArrayList<>();
-        int numberOfShifts =  randomFloat(10f, 50f).intValue();
+        int numberOfShifts =  randomGenerator.randomFloat(10f, 50f).intValue();
         for (int i =0; i < numberOfShifts; i++){
             shifts.add(generateShift());
         }
@@ -33,10 +37,10 @@ public class ShiftGenerator {
     public Shift generateShift() {
 
         Shift shift = new Shift();
-        shift.setId(this.generateId());
-        shift.setTimeSheetId(this.generateId());
-        shift.setUserId(this.generateId());
-        Date date = this.generateDate();
+        shift.setId(randomGenerator.generateId());
+        shift.setTimeSheetId(randomGenerator.generateId());
+        shift.setUserId(randomGenerator.generateId());
+        Date date = randomGenerator.generateDate();
         DateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
         shift.setDate( formatter.format(date));
         shift.setStart(date.getTime());
@@ -45,39 +49,26 @@ public class ShiftGenerator {
         calendar.setTime(date);
         calendar.add(Calendar.HOUR_OF_DAY, 8);
         shift.setFinish(calendar.getTimeInMillis());
-        shift.setDepartmentId(this.generateId());
-        shift.setTagId(this.generateId());
-        shift.setStatus(Status.PENDING);
-
-        //pauzee posle izmenii
-        shift.setBreaks(breakeGenerator.generateShiftBreaks(shift.getStart(), shift.getFinish(), shift.getId()));
-        shift.setAllowances(allowanceGenerator.generateListOfAllownace());
+        shift.setBreaks(breakGenerator.generateShiftBreaks(shift.getStart(), shift.getFinish(), shift.getId()));
+        shift.setDepartmentId(randomGenerator.generateId());
+        shift.setTagId(randomGenerator.generateId());
+        if ((float)Math.random() > .5){
+            shift.setStatus(Status.APPROVED);
+            shift.setApprovedBy(randomGenerator.generateId());
+            shift.setApprovedAt(randomGenerator.randomDate(shift.getFinish(), shift.getFinish()+ MILLIS_IN_A_DAY));
+        } else {
+            shift.setStatus(Status.PENDING);
+        }
+        shift.setLeaveRequestId(randomGenerator.generateId());
+        shift.setShiftFeedBackId(randomGenerator.generateId());
+        shift.setAllowances(allowanceGenerator.generateListOfAllowance());
         shift.setAwardInterpretations(awardInterpretationGenerator.generateListOfAwardInterpretations(shift.getDate(), shift.getStart(),shift.getFinish()));
-
-        shift.setCost(randomFloat(1f, 200f));
+        shift.setCost(randomGenerator.randomFloat(1f, 200f));
+        shift.setUpdatedAt(randomGenerator.randomDate(shift.getFinish(), shift.getFinish()+ MILLIS_IN_A_DAY));
+        shift.setRecordId(randomGenerator.generateId());
+        shift.setLastCostedAt(randomGenerator.randomDate(shift.getFinish(), shift.getFinish()+ MILLIS_IN_A_DAY));
 
         return shift;
     }
 
-    public Long generateId(){
-        long leftLimit = 1000L;
-        long rightLimit = 10000L;
-        return leftLimit + (long) (Math.random() * (rightLimit - leftLimit));
-    }
-
-    public Date generateDate(){
-
-        Date endDate = new Date();
-        Calendar cal = Calendar.getInstance();
-        cal.add(Calendar.DATE, -7);
-        Date startDate = cal.getTime();
-
-        long randMilliseconds = startDate.getTime() + (long) (Math.random() * (endDate.getTime() - startDate.getTime()));
-        Date generatedDate = new Date(randMilliseconds);
-        return generatedDate;
-    }
-    public Float randomFloat (Float min, Float max)
-    {
-        return min + (float) (Math.random() * (max - min));
-    }
 }

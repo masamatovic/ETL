@@ -8,29 +8,29 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 
 @Service
-public class BreakeGenerator {
+public class BreakGenerator {
 
     @Autowired
-    ShiftGenerator shiftGenerator;
+    RandomGenerator randomGenerator;
 
-    static final long ONE_MINUTE_IN_MILLIS=60000;
+    static final long ONE_MINUTE_IN_MILLIS = 60000;
     static int sumOfLength;
 
     public ArrayList<Break> generateShiftBreaks(long startDate, long endDate, Long shiftId){
-        //resart counter
+        //restart counter
         sumOfLength = 0;
         ArrayList<Break> breaks = new ArrayList<>();
-        if (breaks.size() == 0){
-            Break firstBreak = generateBraek(startDate, endDate, shiftId);
+        if (breaks.isEmpty()){
+            Break firstBreak = generateBreak(startDate, endDate, shiftId);
             breaks.add(firstBreak);
             sumOfLength = firstBreak.getLength();
         }
-        while (sumOfLength <= 60 ) {
+        while (sumOfLength <= 30 ) {
             //end of last break
-           long newStartDate = breaks.get(breaks.size()-1).getFinish();
+            long newStartDate = breaks.get(breaks.size()-1).getFinish();
+            Break newBreak = generateBreak(newStartDate, endDate, shiftId);
             //preventing the creation of a break an hour before the end of the shift
-            if (endDate - newStartDate >= 60*ONE_MINUTE_IN_MILLIS) {
-                Break newBreak = generateBraek(newStartDate, endDate, shiftId);
+            if (endDate - newBreak.getStart() >= 60*ONE_MINUTE_IN_MILLIS) {
                 breaks.add(newBreak);
                 sumOfLength+=newBreak.getLength();
             }
@@ -40,24 +40,20 @@ public class BreakeGenerator {
         return breaks;
     }
 
-    public Break generateBraek(long startDate, long endDate, Long shiftId){
+    public Break generateBreak(long startDate, long endDate, Long shiftId){
         Break aBreak = new Break();
-        aBreak.setId(shiftGenerator.generateId());
+        aBreak.setId(randomGenerator.generateId());
         aBreak.setShiftId(shiftId);
         long randMilliseconds = startDate + (long) (Math.random() * (endDate - startDate));
         aBreak.setStart(randMilliseconds);
-        int length = this.generateLength();
+        int length = randomGenerator.generateLength(10, 30);
         aBreak.setLength(length);
         aBreak.setFinish(randMilliseconds + length*ONE_MINUTE_IN_MILLIS );
-        aBreak.setPaid(false);
+        if ((float)Math.random() > .5){
+            aBreak.setPaid(false);
+        } else {
+            aBreak.setPaid(true);
+        }
         return aBreak;
     }
-
-    public int generateLength(){
-        int leftLimit = 10;
-        int rightLimit = 60;
-        return leftLimit + (int) (Math.random() * (rightLimit - leftLimit));
-    }
-
-
 }

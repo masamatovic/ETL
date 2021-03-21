@@ -37,7 +37,7 @@ public class Shift {
     @Column
     Long leaveRequestId;
     @Column
-    String shiftFeedBackId;
+    Long shiftFeedBackId;
     @Column
     Long approvedBy;
     @Column
@@ -196,11 +196,11 @@ public class Shift {
         this.awardInterpretations = awardInterpretations;
     }
 
-    public String getShiftFeedBackId() {
+    public Long getShiftFeedBackId() {
         return shiftFeedBackId;
     }
 
-    public void setShiftFeedBackId(String shiftFeedBackId) {
+    public void setShiftFeedBackId(Long shiftFeedBackId) {
         this.shiftFeedBackId = shiftFeedBackId;
     }
 

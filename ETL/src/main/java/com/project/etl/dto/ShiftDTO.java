@@ -18,14 +18,14 @@ public class ShiftDTO {
     Status status;
     String metadata;
     Long leaveRequestId;
-    String shiftFeedBackId;
+    Long shiftFeedBackId;
     Long approvedBy;
     Long approvedAt;
     Float cost;
     Long updatedAt;
     Long recordId;
     Long lastCostedAt;
-    // DODAJ SVE LISTE
+
     ArrayList<BreakDTO> breaks = new ArrayList<>();
     ArrayList<AllowanceDTO> allowances = new ArrayList<>();
     ArrayList<AwardInterpretationDTO> awardInterpretations = new ArrayList<>();
@@ -35,7 +35,7 @@ public class ShiftDTO {
     public ShiftDTO() {
     }
 
-    public ShiftDTO(Long id, Long timeSheetId, Long userId, String date, Long start, Long finish, Long departmentId, String subCostCentre, String tag, Long tagId, Status status, String metadata, Long leaveRequestId, String shiftFeedBackId, Long approvedBy, Long approvedAt, Float cost, Long updatedAt, Long recordId, Long lastCostedAt, ArrayList<BreakDTO> breaks, ArrayList<AllowanceDTO> allowances, ArrayList<AwardInterpretationDTO> awardInterpretations) {
+    public ShiftDTO(Long id, Long timeSheetId, Long userId, String date, Long start, Long finish, Long departmentId, String subCostCentre, String tag, Long tagId, Status status, String metadata, Long leaveRequestId, Long shiftFeedBackId, Long approvedBy, Long approvedAt, Float cost, Long updatedAt, Long recordId, Long lastCostedAt, ArrayList<BreakDTO> breaks, ArrayList<AllowanceDTO> allowances, ArrayList<AwardInterpretationDTO> awardInterpretations) {
         this.id = id;
         this.timeSheetId = timeSheetId;
         this.userId = userId;
@@ -189,11 +189,11 @@ public class ShiftDTO {
         this.approvedAt = approvedAt;
     }
 
-    public String getShiftFeedBackId() {
+    public Long getShiftFeedBackId() {
         return shiftFeedBackId;
     }
 
-    public void setShiftFeedBackId(String shiftFeedBackId) {
+    public void setShiftFeedBackId(Long shiftFeedBackId) {
         this.shiftFeedBackId = shiftFeedBackId;
     }
 
@@ -244,4 +244,5 @@ public class ShiftDTO {
     public void setAwardInterpretations(ArrayList<AwardInterpretationDTO> awardInterpretations) {
         this.awardInterpretations = awardInterpretations;
     }
+
 }

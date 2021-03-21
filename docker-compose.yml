@@ -22,7 +22,7 @@ services:
     depends_on:
       - postgres
   api:
-    build: ./SmartCat
+    build: ./Generator
     ports:
     - "8080:8080"
 

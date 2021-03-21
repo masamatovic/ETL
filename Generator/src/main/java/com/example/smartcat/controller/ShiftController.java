@@ -1,6 +1,5 @@
 package com.example.smartcat.controller;
 
-import ch.qos.logback.classic.sift.SiftAction;
 import com.example.smartcat.model.Shift;
 import com.example.smartcat.service.ShiftGenerator;
 import org.springframework.beans.factory.annotation.Autowired;
