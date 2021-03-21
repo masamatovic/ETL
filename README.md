@@ -1,15 +1,13 @@
 # ETL
-### GENERATOR 
+## GENERATOR 
   
-  Application with REST endpoint. <br />
-  The endpoint generate random shift data for the previous week.
-
-### ETL
+  Application that generates random shifts data for the previous week, it is accessed with REST endpoint. 
+## ETL
   
   ETL (Extract Transform Load) application: 
   * Fetches the data from Generator endpoint.
-  * Convert all timestamps  to EST timezone.
-  * Save data in postgres database.
+  * Converts all timestamps to EST timezone.
+  * Saves the data to postgres database.
   
 # RUN APPLICATIONS
 ```
