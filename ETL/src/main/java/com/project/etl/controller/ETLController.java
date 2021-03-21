@@ -1,5 +1,4 @@
 package com.project.etl.controller;
-import com.project.etl.dto.ShiftDTO;
 import com.project.etl.service.ETLService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -15,8 +14,8 @@ public class ETLController {
 
     @GetMapping()
     public ResponseEntity<String>  fetchesTheData(){
-        ShiftDTO[] shifts = etlService.extract();
-        return new ResponseEntity<>("The data was successfully supplied", HttpStatus.OK);
+        String message = etlService.extract();
+        return new ResponseEntity<>(message, HttpStatus.OK);
     }
 
 }
