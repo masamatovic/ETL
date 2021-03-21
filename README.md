@@ -8,12 +8,12 @@
   * Fetches the data from Generator endpoint.
   * Converts all timestamps to EST timezone.
   * Saves the data to postgres database.
-<br />  
-RUN APPLICATIONS
+  
+build and run applications
 ```
 $ docker-compose up --build
 ```
-START ETL PROCESS
+start etl process
 ```
 $ ./start.sh
 ```
